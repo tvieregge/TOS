@@ -28,9 +28,6 @@ _start:
 	# Initialize the core kernel before running the global constructors.
 	call kernel_early
 
-	# Call the global constructors.
-	call _init
-
 	# Transfer control to the main kernel.
 	call kernel_main
 
