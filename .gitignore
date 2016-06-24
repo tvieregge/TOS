@@ -2,4 +2,6 @@
 *.iso
 *.bin
 
+tags
+
 sysroot

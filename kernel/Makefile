@@ -13,7 +13,7 @@ BOOTDIR?=$(EXEC_PREFIX)/boot
 INCLUDEDIR?=$(PREFIX)/include
 
 CFLAGS:=$(CFLAGS) -ffreestanding -fbuiltin -Wall -Wextra
-CPPFLAGS:=$(CPPFLAGS) -D__is_myos_kernel -Iinclude
+CPPFLAGS:=$(CPPFLAGS) -D__is_tos_kernel -Iinclude
 LDFLAGS:=$(LDFLAGS)
 LIBS:=$(LIBS) -nostdlib -lk -lgcc
 
@@ -36,11 +36,11 @@ $(OBJS) \
 OBJ_LINK_LIST:=\
 $(OBJS) \
 
-all: myos.kernel
+all: tos.kernel
 
 .PHONY: all clean install install-headers install-kernel
 
-myos.kernel: $(OBJ_LINK_LIST) $(ARCHDIR)/linker.ld
+tos.kernel: $(OBJ_LINK_LIST) $(ARCHDIR)/linker.ld
 	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(OBJ_LINK_LIST) $(LDFLAGS) $(LIBS)
 
 %.o: %.c
@@ -50,7 +50,7 @@ myos.kernel: $(OBJ_LINK_LIST) $(ARCHDIR)/linker.ld
 	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
 
 clean:
-	rm -f myos.kernel $(OBJS) $(ALL_OUR_OBJS) *.o */*.o */*/*.o
+	rm -f tos.kernel $(OBJS) $(ALL_OUR_OBJS) *.o */*.o */*/*.o
 
 install: install-headers install-kernel
 
@@ -58,6 +58,6 @@ install-headers:
 	mkdir -p $(DESTDIR)$(INCLUDEDIR)
 	cp -RTv include $(DESTDIR)$(INCLUDEDIR)
 
-install-kernel: myos.kernel
+install-kernel: tos.kernel
 	mkdir -p $(DESTDIR)$(BOOTDIR)
-	cp myos.kernel $(DESTDIR)$(BOOTDIR)
+	cp tos.kernel $(DESTDIR)$(BOOTDIR)
