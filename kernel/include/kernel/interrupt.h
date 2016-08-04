@@ -32,5 +32,6 @@ struct gdt_descriptor {
 };
 
 int init_gdt();
+void reload_segments();
 
 #endif
