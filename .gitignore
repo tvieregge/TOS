@@ -1,6 +1,7 @@
 *.o
 *.iso
 *.bin
+*.swp
 
 tags
 
