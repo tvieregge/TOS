@@ -71,7 +71,7 @@ void reload_segments();
 #define I86_IDT_DESC_RING1		0x40	//01000000
 #define I86_IDT_DESC_RING2		0x20	//00100000
 #define I86_IDT_DESC_RING3		0x60	//01100000
-#define I86_IDT_DESC_PRESENT	0x80	//10000000
+#define I86_IDT_DESC_PRESENT		0x80	//10000000
 
 struct __attribute__ ((__packed__)) idt_descriptor {
  
@@ -101,7 +101,7 @@ struct __attribute__((__packed__)) idtr {
 };
 
 int i86_idt_initialize (uint16_t codeSel);
-int i86_install_ir (uint32_t i, uint16_t flags, uint16_t sel, I86_IRQ_HANDLER irq);
+int i86_install_ir (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)());
 
 //! interrupt descriptor table
 static struct idt_descriptor	_idt [I86_MAX_INTERRUPTS];

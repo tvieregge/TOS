@@ -9,7 +9,9 @@
 void kernel_early(void)
 {
 	init_gdt();
+	i86_idt_initialize(0x8);
 	terminal_initialize();
+	__asm__( "INT $5" );
 }
 
 void kernel_main(void)

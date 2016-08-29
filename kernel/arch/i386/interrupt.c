@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdio.h>
 #include <stdint.h>
 
@@ -45,6 +46,11 @@ int init_gdt() {
 	return 0;
 }
 
+void default_handler() {
+	printf("Default handler!\n");
+	while(1) {;}
+}
+
 //! initialize idt
 int i86_idt_initialize (uint16_t codeSel) {
  
@@ -53,21 +59,21 @@ int i86_idt_initialize (uint16_t codeSel) {
 	_idtr.base	= (uint32_t)&_idt[0];
  
 	//! null out the idt
-	memset ((void*)&_idt[0], 0, sizeof (idt_descriptor) * I86_MAX_INTERRUPTS-1);
+	memset ((void*)&_idt[0], 0, sizeof (struct idt_descriptor) * I86_MAX_INTERRUPTS-1);
  
 	//! register default handlers
 	for (int i=0; i<I86_MAX_INTERRUPTS; i++)
 		i86_install_ir (i, I86_IDT_DESC_PRESENT | I86_IDT_DESC_BIT32,
-			codeSel, (I86_IRQ_HANDLER)i86_default_handler);
+			codeSel, default_handler);
  
 	//! install our idt
-	__asm__( "lidt (%0)" :: "m" (idtr) );
+	__asm__( "lidt (%0)" :: "m" (_idtr) );
  
 	return 0;
 }
 
 //! installs a new interrupt handler
-int i86_install_ir (uint32_t i, uint16_t flags, uint16_t sel, I86_IRQ_HANDLER irq) {
+int i86_install_ir (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)()) {
  
 	if (i>I86_MAX_INTERRUPTS)
 		return 0;
