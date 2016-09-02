@@ -4,11 +4,12 @@
 static uint64_t gdt[MAX_DESCRIPTORS];
 static struct   gdtr gdtr;
 
-int init_gdt() {
+int i86_init_gdt() {
 	// set up gdtr
 	gdtr.m_limit = sizeof(uint64_t) * MAX_DESCRIPTORS-1;
 	gdtr.m_base = (uint32_t)&gdt[0];
 
+    // Flat 4GB adress space
 	gdt[0] = create_descriptor(0, 0, 0);	// set null descriptor
     gdt[1] = create_descriptor(0, 0x000FFFFF, (GDT_CODE_PL0));
     gdt[2] = create_descriptor(0, 0x000FFFFF, (GDT_DATA_PL0));
@@ -16,8 +17,6 @@ int init_gdt() {
     gdt[4] = create_descriptor(0, 0x000FFFFF, (GDT_DATA_PL3));
 
 	__asm__( "lgdt (%0)" :: "m" (gdtr) );
-
-	reload_segments();
 
 	return 0;
 }

@@ -9,10 +9,10 @@ int i86_idt_initialize (uint16_t codeSel) {
 	_idtr.limit = sizeof (struct idt_descriptor) * I86_MAX_INTERRUPTS -1;
 	_idtr.base	= (uint32_t)&_idt[0];
  
-	//null out the idt
 	memset((void*)&_idt[0], 0, sizeof(struct idt_descriptor) * I86_MAX_INTERRUPTS-1);
  
 	//register default handlers
+    //TODO: should only need to register one
 	for (int i=0; i<I86_MAX_INTERRUPTS; i++)
 		i86_install_handler (i, I86_IDT_DESC_PRESENT | I86_IDT_DESC_BIT32,
 			codeSel, default_handler);
@@ -23,7 +23,6 @@ int i86_idt_initialize (uint16_t codeSel) {
 	return 0;
 }
 
-//installs a new interrupt handler
 int i86_install_handler (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)()) {
  
 	if (i>I86_MAX_INTERRUPTS) {

@@ -4,12 +4,11 @@
 #include <stdio.h>
 
 #include <kernel/tty.h>
-#include <kernel/interrupt.h>
+#include <kernel/hal.h>
 
 void kernel_early(void)
 {
-	init_gdt();
-	i86_idt_initialize(0x8);
+    init_hal();
 	terminal_initialize();
 	__asm__( "INT $5" );
 }
