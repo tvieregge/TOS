@@ -3,6 +3,10 @@
 #include "stdlib.h"
 #include "idt.h"
 
+void test_handler() {
+	printf("Test handler!\n");
+	while(1) {;}
+}
 int i86_idt_initialize (uint16_t codeSel) {
  
 	//set up idtr for processor
@@ -17,6 +21,10 @@ int i86_idt_initialize (uint16_t codeSel) {
 		i86_install_handler (i, I86_IDT_DESC_PRESENT | I86_IDT_DESC_BIT32,
 			codeSel, default_handler);
  
+    i86_install_handler (5,
+                         I86_IDT_DESC_PRESENT | I86_IDT_DESC_BIT32,
+                         codeSel,
+                         test_handler);
 	//install our idt
 	__asm__( "lidt (%0)" :: "m" (_idtr) );
  
