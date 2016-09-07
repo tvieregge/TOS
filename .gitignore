@@ -2,6 +2,7 @@
 *.iso
 *.bin
 *.swp
+*.sym
 
 tags
 

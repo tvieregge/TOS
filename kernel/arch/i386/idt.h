@@ -40,9 +40,10 @@ struct __attribute__((__packed__)) idtr {
 	uint32_t		base;
 };
 
-void default_handler();
-int i86_idt_initialize (uint16_t codeSel);
-int i86_install_handler (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)());
+void fault_handler();
+int idt_initialize (uint16_t codeSel);
+int isr_set (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)());
+int set_isrs(uint16_t codeSel);
 
 // interrupt descriptor table
 static struct idt_descriptor	_idt [I86_MAX_INTERRUPTS];

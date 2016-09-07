@@ -1,6 +1,8 @@
 #include "gdt.h"
 #include "stdlib.h"
 
+void gdt_flush();
+
 static uint64_t gdt[MAX_DESCRIPTORS];
 static struct   gdtr gdtr;
 
@@ -16,7 +18,9 @@ int i86_init_gdt() {
     gdt[3] = create_descriptor(0, 0x000FFFFF, (GDT_CODE_PL3));
     gdt[4] = create_descriptor(0, 0x000FFFFF, (GDT_DATA_PL3));
 
+    //TODO: combine these two lines
 	__asm__( "lgdt (%0)" :: "m" (gdtr) );
+    gdt_flush();
 
 	return 0;
 }

@@ -1,8 +1,8 @@
 .text
-.global reload_segments
-#.type reload_segments, @function
+.global gdt_flush
+#.type gdt_flush, @function
 
-reload_segments:
+gdt_flush:
    # Reload CS register containing code selector:
    LJMP   $0x08, $reload_CS # 0x08 points at the new code selector
 reload_CS:

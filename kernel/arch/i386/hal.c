@@ -4,7 +4,9 @@
 int init_hal() {
     __asm__( "cli" );
 
-	ret_val = i86_idt_initialize(0x8);
+    int ret_val;
+
+	ret_val = idt_initialize(0x8);
     if (ret_val != 0) {
         return -1;
     }
