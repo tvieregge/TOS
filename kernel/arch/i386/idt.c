@@ -111,8 +111,11 @@ int isr_set (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)()) {
 	return	0;
 }
 
-void fault_handler() {
-	printf("Fault handler!\n");
+void fault_handler(struct regs* r) {
+    // Because printf isn't finished/understood
+    int ascii_rep = r->int_no + 48;
+	printf("Exception: ");
+	printf(&ascii_rep);
 	while(1) {;}
 }
 
