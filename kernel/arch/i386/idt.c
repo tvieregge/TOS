@@ -119,7 +119,8 @@ void fault_handler(struct regs* r) {
 	while(1) {;}
 }
 
-void irq_handler() {
-	printf("Fault handler!\n");
-	while(1) {;}
+void irq_handler(struct regs* r) {
+    int ascii_rep = r->int_no + 48;
+	printf("IRQ: ");
+	printf(&ascii_rep);
 }

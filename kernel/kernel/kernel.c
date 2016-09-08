@@ -10,7 +10,6 @@ void kernel_early(void)
 {
     init_hal();
 	terminal_initialize();
-	__asm__( "INT $5" );
 }
 
 void kernel_main(void)
