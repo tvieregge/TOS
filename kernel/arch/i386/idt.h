@@ -42,7 +42,7 @@ struct __attribute__((__packed__)) idtr {
 
 void fault_handler();
 int idt_initialize (uint16_t codeSel);
-int isr_set (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)());
+int idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)());
 int set_isrs(uint16_t codeSel);
 
 // interrupt descriptor table

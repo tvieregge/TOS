@@ -2,6 +2,7 @@
 #include "string.h"
 #include "stdlib.h"
 #include "idt.h"
+#include <kernel/hal.h>
 
 void _isr1();
 void _isr2();
@@ -36,7 +37,22 @@ void _isr30();
 void _isr31();
 void _isr32();
 
-void isr_common_stub();
+void _irq0();
+void _irq1();
+void _irq2(); 
+void _irq3(); 
+void _irq4(); 
+void _irq5(); 
+void _irq6(); 
+void _irq7(); 
+void _irq8(); 
+void _irq9(); 
+void _irq10(); 
+void _irq11(); 
+void _irq12(); 
+void _irq13(); 
+void _irq14(); 
+void _irq15(); 
 
 int idt_initialize (uint16_t codeSel) {
 	//set up idtr for processor
@@ -54,41 +70,58 @@ int idt_initialize (uint16_t codeSel) {
 
 int set_isrs(uint16_t codeSel) {
     const int FLAGS = I86_IDT_DESC_PRESENT | I86_IDT_DESC_BIT32;
-	isr_set (1, FLAGS, codeSel, _isr1);
-	isr_set (2, FLAGS, codeSel, _isr2);
-	isr_set (3, FLAGS, codeSel, _isr3);
-	isr_set (4, FLAGS, codeSel, _isr4);
-	isr_set (5, FLAGS, codeSel, _isr5);
-	isr_set (6, FLAGS, codeSel, _isr6);
-	isr_set (7, FLAGS, codeSel, _isr7);
-	isr_set (8, FLAGS, codeSel, _isr8);
-	isr_set (9, FLAGS, codeSel, _isr9);
-	isr_set (10, FLAGS, codeSel, _isr10);
-	isr_set (11, FLAGS, codeSel, _isr11);
-	isr_set (12, FLAGS, codeSel, _isr12);
-	isr_set (13, FLAGS, codeSel, _isr13);
-	isr_set (14, FLAGS, codeSel, _isr14);
-	isr_set (15, FLAGS, codeSel, _isr15);
-	isr_set (16, FLAGS, codeSel, _isr16);
-	isr_set (17, FLAGS, codeSel, _isr17);
-	isr_set (18, FLAGS, codeSel, _isr18);
-	isr_set (19, FLAGS, codeSel, _isr19);
-	isr_set (20, FLAGS, codeSel, _isr20);
-	isr_set (21, FLAGS, codeSel, _isr21);
-	isr_set (22, FLAGS, codeSel, _isr22);
-	isr_set (23, FLAGS, codeSel, _isr23);
-	isr_set (24, FLAGS, codeSel, _isr24);
-	isr_set (25, FLAGS, codeSel, _isr25);
-	isr_set (26, FLAGS, codeSel, _isr26);
-	isr_set (27, FLAGS, codeSel, _isr27);
-	isr_set (28, FLAGS, codeSel, _isr28);
-	isr_set (29, FLAGS, codeSel, _isr29);
-	isr_set (30, FLAGS, codeSel, _isr30);
-	isr_set (31, FLAGS, codeSel, _isr31);
+	idt_set_entry (1, FLAGS, codeSel, _isr1);
+	idt_set_entry (2, FLAGS, codeSel, _isr2);
+	idt_set_entry (3, FLAGS, codeSel, _isr3);
+	idt_set_entry (4, FLAGS, codeSel, _isr4);
+	idt_set_entry (5, FLAGS, codeSel, _isr5);
+	idt_set_entry (6, FLAGS, codeSel, _isr6);
+	idt_set_entry (7, FLAGS, codeSel, _isr7);
+	idt_set_entry (8, FLAGS, codeSel, _isr8);
+	idt_set_entry (9, FLAGS, codeSel, _isr9);
+	idt_set_entry (10, FLAGS, codeSel, _isr10);
+	idt_set_entry (11, FLAGS, codeSel, _isr11);
+	idt_set_entry (12, FLAGS, codeSel, _isr12);
+	idt_set_entry (13, FLAGS, codeSel, _isr13);
+	idt_set_entry (14, FLAGS, codeSel, _isr14);
+	idt_set_entry (15, FLAGS, codeSel, _isr15);
+	idt_set_entry (16, FLAGS, codeSel, _isr16);
+	idt_set_entry (17, FLAGS, codeSel, _isr17);
+	idt_set_entry (18, FLAGS, codeSel, _isr18);
+	idt_set_entry (19, FLAGS, codeSel, _isr19);
+	idt_set_entry (20, FLAGS, codeSel, _isr20);
+	idt_set_entry (21, FLAGS, codeSel, _isr21);
+	idt_set_entry (22, FLAGS, codeSel, _isr22);
+	idt_set_entry (23, FLAGS, codeSel, _isr23);
+	idt_set_entry (24, FLAGS, codeSel, _isr24);
+	idt_set_entry (25, FLAGS, codeSel, _isr25);
+	idt_set_entry (26, FLAGS, codeSel, _isr26);
+	idt_set_entry (27, FLAGS, codeSel, _isr27);
+	idt_set_entry (28, FLAGS, codeSel, _isr28);
+	idt_set_entry (29, FLAGS, codeSel, _isr29);
+	idt_set_entry (30, FLAGS, codeSel, _isr30);
+	idt_set_entry (31, FLAGS, codeSel, _isr31);
+
+	idt_set_entry (32, FLAGS, codeSel, _irq0);
+	idt_set_entry (33, FLAGS, codeSel, _irq1);
+	idt_set_entry (34, FLAGS, codeSel, _irq2);
+	idt_set_entry (35, FLAGS, codeSel, _irq3);
+	idt_set_entry (36, FLAGS, codeSel, _irq4);
+	idt_set_entry (37, FLAGS, codeSel, _irq5);
+	idt_set_entry (38, FLAGS, codeSel, _irq6);
+	idt_set_entry (39, FLAGS, codeSel, _irq7);
+	idt_set_entry (40, FLAGS, codeSel, _irq8);
+	idt_set_entry (41, FLAGS, codeSel, _irq9);
+	idt_set_entry (42, FLAGS, codeSel, _irq10);
+	idt_set_entry (43, FLAGS, codeSel, _irq11);
+	idt_set_entry (44, FLAGS, codeSel, _irq12);
+	idt_set_entry (45, FLAGS, codeSel, _irq13);
+	idt_set_entry (46, FLAGS, codeSel, _irq14);
+	idt_set_entry (47, FLAGS, codeSel, _irq15);
 }
 
-// Installs the ISRs into the idt array
-int isr_set (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)()) {
+// Installs the ISR into the idt array
+int idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)()) {
  
 	if (i > I86_MAX_INTERRUPTS) {
 		return -1;
@@ -123,4 +156,9 @@ void irq_handler(struct regs* r) {
     int ascii_rep = r->int_no + 48;
 	printf("IRQ: ");
 	printf(&ascii_rep);
+
+    if (r->int_no >= 40) {
+        outb(0xA0, 0x20);
+    }
+    outb(0x20, 0x20);
 }

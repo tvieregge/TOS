@@ -17,15 +17,12 @@ int init_hal() {
         return -2;
     }
 
-    ret_val = PIC_init()
-    if (ret_val != 0) {
-        return -1;
-    }
+    PIC_init();
 
     return 0;
 }
-static inline void outb(uint16_t port, uint8_t val)
-{
+
+void outb(uint16_t port, uint8_t val) {
         __asm__ volatile ( "outb %0, %1" : : "a"(val), "Nd"(port) );
         /* There's an outb %al, $imm8  encoding, for compile-time constant
          * port numbers that fit in 8b.  (N constraint).
@@ -35,8 +32,7 @@ static inline void outb(uint16_t port, uint8_t val)
          * used if we had the port number a wider C type */
 }
 
-static inline uint8_t inb(uint16_t port)
-{
+uint8_t inb(uint16_t port) {
     uint8_t ret;
     __asm__ volatile ( "inb %1, %0"
                      : "=a"(ret)
