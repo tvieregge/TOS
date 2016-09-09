@@ -19,6 +19,8 @@ int init_hal() {
 
     PIC_init();
 
+    __asm__( "sti" );
+
     return 0;
 }
 

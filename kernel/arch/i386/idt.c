@@ -156,6 +156,7 @@ void irq_handler(struct regs* r) {
     int ascii_rep = r->int_no + 48;
 	printf("IRQ: ");
 	printf(&ascii_rep);
+    printf("\n");
 
     if (r->int_no >= 40) {
         outb(0xA0, 0x20);
