@@ -40,26 +40,13 @@ struct __attribute__((__packed__)) idtr {
 	uint32_t		base;
 };
 
-void fault_handler();
 int idt_initialize (uint16_t codeSel);
 int idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)());
-int set_isrs(uint16_t codeSel);
 
 // interrupt descriptor table
 static struct idt_descriptor	_idt [I86_MAX_INTERRUPTS];
  
 // idtr structure used to help define the cpu's idtr register
 static struct idtr				_idtr;
-
-// Tells the functiones called from the isrs what the stack looks like
-// TODO: This is temporary, should be simplified
-struct regs
-{
-    unsigned int gs, fs, es, ds;      /* pushed the segs last */
-    unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax;  /* pushed by 'pusha' */
-    unsigned int int_no, err_code;    /* our 'push byte #' and ecodes do this */
-    unsigned int eip, cs, eflags, useresp, ss; /* pushed by the proc automatically */
-};
-
 
 #endif
