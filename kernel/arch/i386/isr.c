@@ -59,7 +59,7 @@ struct regs
     unsigned int eip, cs, eflags, useresp, ss; /* pushed by the proc automatically */
 };
 
-(*void)(struct regs*) irq_handlers[PIC_NO_INTERRUPTS] = {0}; 
+void (*irq_handlers[PIC_NO_INTERRUPTS])(struct regs*) = {0}; 
 
 int set_isrs(uint16_t codeSel) {
     const int FLAGS = I86_IDT_DESC_PRESENT | I86_IDT_DESC_BIT32;
