@@ -421,7 +421,7 @@ irq_common_stub:
     mov %esp, %eax
 
     push %eax
-    call irq_server
+    call irq_handler
     pop %eax
 
     pop %gs

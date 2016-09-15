@@ -43,10 +43,4 @@ struct __attribute__((__packed__)) idtr {
 int idt_initialize (uint16_t codeSel);
 int idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)());
 
-// interrupt descriptor table
-static struct idt_descriptor	_idt [I86_MAX_INTERRUPTS];
- 
-// idtr structure used to help define the cpu's idtr register
-static struct idtr				_idtr;
-
 #endif

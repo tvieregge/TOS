@@ -1,6 +1,7 @@
 #include "gdt.h"
 #include "idt.h"
 #include "pic.h"
+#include "pit.h"
 
 int init_hal() {
     __asm__( "cli" );
@@ -18,6 +19,7 @@ int init_hal() {
     }
 
     PIC_init();
+    PIT_init();
 
     __asm__( "sti" );
 

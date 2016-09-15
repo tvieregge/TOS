@@ -2,7 +2,14 @@
 #include "string.h"
 #include "stdlib.h"
 #include "idt.h"
+#include "isr.h"
 #include <kernel/hal.h>
+
+// interrupt descriptor table
+static struct idt_descriptor	_idt [I86_MAX_INTERRUPTS];
+ 
+// idtr structure used to help define the cpu's idtr register
+static struct idtr				_idtr;
 
 int idt_initialize (uint16_t codeSel) {
 	//set up idtr for processor

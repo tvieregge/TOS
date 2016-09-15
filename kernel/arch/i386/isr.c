@@ -1,3 +1,8 @@
+#include "isr.h"
+#include "pic.h"
+#include "idt.h"
+#include <stddef.h>
+
 void _isr1();
 void _isr2();
 void _isr3();
@@ -49,17 +54,7 @@ void _irq14();
 void _irq15(); 
 
 
-// Tells the functiones called from the isrs what the stack looks like
-// TODO: This is temporary, should be simplified
-struct regs
-{
-    unsigned int gs, fs, es, ds;      /* pushed the segs last */
-    unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax;  /* pushed by 'pusha' */
-    unsigned int int_no, err_code;    /* our 'push byte #' and ecodes do this */
-    unsigned int eip, cs, eflags, useresp, ss; /* pushed by the proc automatically */
-};
-
-void (*irq_handlers[PIC_NO_INTERRUPTS])(struct regs*) = {0}; 
+isr_handler_routine irq_handlers[PIC_NUM_INTERRUPTS] = {0}; 
 
 int set_isrs(uint16_t codeSel) {
     const int FLAGS = I86_IDT_DESC_PRESENT | I86_IDT_DESC_BIT32;
@@ -115,21 +110,25 @@ int set_isrs(uint16_t codeSel) {
 
 void fault_handler(struct regs* r) {
     // Because printf isn't finished/understood
-    int ascii_rep = r->int_no + 48;
-	printf("Exception: ");
-	printf(&ascii_rep);
+	printf("Exception: %c\n", r->int_no);
 	for(;;); // No way to recover yet
 }
 
-void install_irq_handler(int i, void (*irq_handler)(struct regs* r)) {
+void install_irq_handler(int i, isr_handler_routine irq_handler) {
     irq_handlers[i] = irq_handler;
+}
+
+void uninstall_irq_handler(int i) {
+    irq_handlers[i] = NULL;
 }
 
 void irq_server(struct regs* r) {
     void (*irq_handler)(struct regs* r);
-	irq_handler = irq_handler_routines[r->int_no];
+    int irq_num = r->int_no - 32;
+	irq_handler = irq_handlers[irq_num];
+    
     if(irq_handler != NULL) {
-        handler(r);
+        irq_handler(r);
     }
 
     if (r->int_no >= 40) {

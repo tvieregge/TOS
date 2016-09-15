@@ -2,6 +2,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 static void print(const char* data, size_t data_length)
 {
@@ -59,6 +60,15 @@ int printf(const char* restrict format, ...)
 			const char* s = va_arg(parameters, const char*);
 			print(s, strlen(s));
 		}
+        else if ( *format == 'd' )
+        {
+            format++;
+			int i = va_arg(parameters, int);
+            char s[32] = {0};
+            temp_itoa(i, 10, s);
+            print(s, strlen(s));
+
+        }
 		else
 		{
 			goto incomprehensible_conversion;

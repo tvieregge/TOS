@@ -22,11 +22,11 @@ void kernel_early(void)
 
 void kernel_main(void)
 {
-    int title_len = sizeof(title)/sizeof(title[0]);
+    /*int title_len = sizeof(title)/sizeof(title[0]);
     for(int i=0; i<title_len; i++) {
         printf(title[i]);
         printf("\n");
-    }
+    }*/
     for(;;);
 }
 

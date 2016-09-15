@@ -10,6 +10,9 @@ extern "C" {
 __attribute__((__noreturn__))
 void abort(void);
 
+// Non portable temporary function from Brokenthorn OS tutorials
+int temp_itoa(int i, unsigned int base, char* buf);
+
 #ifdef __cplusplus
 }
 #endif
