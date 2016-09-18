@@ -44,14 +44,8 @@ void terminal_putnewline()
     terminal_row = (terminal_row + 1) % VGA_HEIGHT;
 }
 
-void terminal_putchar(char c)
+void terminal_increment_cursor()
 {
-    if(c == '\n') 
-    {
-        terminal_putnewline();
-        return;
-    }
-	terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
 	if ( ++terminal_column == VGA_WIDTH )
 	{
 		terminal_column = 0;
@@ -60,6 +54,40 @@ void terminal_putchar(char c)
 			terminal_row = 0;
 		}
 	}
+
+}
+
+// TODO: Find last used space on previous line
+void terminal_decrement_cursor()
+{
+	if ( terminal_column == 0 )
+	{
+        terminal_row -= 1;
+        terminal_column = VGA_WIDTH;
+		if ( terminal_row == 0 )
+		{
+			terminal_row = VGA_HEIGHT;
+		}
+	}
+    terminal_column -= 1;
+
+}
+
+void terminal_putchar(char c)
+{
+    if(c == '\n') 
+    {
+        terminal_putnewline();
+        return;
+    }
+    else if(c == '\b')
+    {
+        terminal_decrement_cursor();
+        terminal_putentryat(' ', terminal_color, terminal_column, terminal_row);
+        return;
+    }
+	terminal_putentryat(c, terminal_color, terminal_column, terminal_row);
+    terminal_increment_cursor();
 }
 
 void terminal_write(const char* data, size_t size)
