@@ -9,9 +9,6 @@
 void PIT_irq_handler(struct regs* r) {
     static unsigned int ticks = 0;
     ticks += 1;
-    if(ticks % 100 == 0) {
-        printf("One second, Tick: %d\n", ticks);
-    }
 }
 
 void PIT_set_phase(uint32_t hz) {

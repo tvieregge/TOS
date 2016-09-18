@@ -2,6 +2,7 @@
 #include "idt.h"
 #include "pic.h"
 #include "pit.h"
+#include "kb.h"
 
 int init_hal() {
     __asm__( "cli" );
@@ -20,6 +21,8 @@ int init_hal() {
 
     PIC_init();
     PIT_init();
+
+    KB_init();
 
     __asm__( "sti" );
 
