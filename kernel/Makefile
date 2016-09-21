@@ -29,6 +29,7 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 OBJS:=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
+kernel/shell.o \
 
 ALL_OUR_OBJS:=\
 $(OBJS) \

@@ -15,7 +15,7 @@ void terminal_initialize(void)
 {
 	terminal_row = 0;
 	terminal_column = 0;
-	terminal_color = make_color(COLOR_LIGHT_GREY, COLOR_BLACK);
+	terminal_color = make_color(COLOR_GREEN, COLOR_BLACK);
 	terminal_buffer = VGA_MEMORY;
 	for ( size_t y = 0; y < VGA_HEIGHT; y++ )
 	{
@@ -57,19 +57,12 @@ void terminal_increment_cursor()
 
 }
 
-// TODO: Find last used space on previous line
 void terminal_decrement_cursor()
 {
-	if ( terminal_column == 0 )
+	if ( terminal_column != 0 )
 	{
-        terminal_row -= 1;
-        terminal_column = VGA_WIDTH;
-		if ( terminal_row == 0 )
-		{
-			terminal_row = VGA_HEIGHT;
-		}
+        terminal_column -= 1;
 	}
-    terminal_column -= 1;
 
 }
 
