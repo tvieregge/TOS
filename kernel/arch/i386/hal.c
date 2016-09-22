@@ -29,6 +29,10 @@ int init_hal() {
     return 0;
 }
 
+unsigned int timer_get_uptime() {
+    return PIT_get_uptime();
+}
+
 void outb(uint16_t port, uint8_t val) {
         __asm__ volatile ( "outb %0, %1" : : "a"(val), "Nd"(port) );
         /* There's an outb %al, $imm8  encoding, for compile-time constant

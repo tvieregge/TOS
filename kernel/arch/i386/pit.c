@@ -6,9 +6,14 @@
 #define     PIT_REG_COUNTER_2   0x42
 #define     PIT_REG_COMMAND     0x43
 
+static unsigned int _ticks = 0;
+
 void PIT_irq_handler(struct regs* r) {
-    static unsigned int ticks = 0;
-    ticks += 1;
+    _ticks += 1;
+}
+
+unsigned int PIT_get_uptime() {
+    return _ticks;
 }
 
 void PIT_set_phase(uint32_t hz) {

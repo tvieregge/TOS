@@ -9,5 +9,6 @@
 #define     PIT_SQUARE_WAVE_MODE    0x06
 
 void PIT_init();
+unsigned int PIT_get_uptime();
 
 #endif
