@@ -1,13 +1,11 @@
 #include <kernel/shell.h>
 #include <kernel/tty.h>
 
-<<<<<<< 23c71b83de8013eb3f120818ea855563bfe29884
-=======
 #include "string.h"
 
 static char* _prompt = '\0';
->>>>>>> strange stuff with git. Done first draft of shell
-char const * const title[] = {
+
+char const * const _title[] = {
 "  __________  _____",
 " /_  __/ __ \\/ ___/",
 "  / / / / / /\\__ \\ ",
@@ -17,23 +15,14 @@ char const * const title[] = {
 
 char* commands[] = {
     "help",
-<<<<<<< 23c71b83de8013eb3f120818ea855563bfe29884
-    "time"
-};
-
-void process_cmd() {
-
-}
-
-=======
     "uptime"
 };
 
 void cmd_help() {
     int num_commands = (sizeof commands) / (sizeof commands[0]);
-    printf("Commands are:\n ");
+    printf("Commands are:");
     for(int i=0; i<num_commands; ++i) {
-        printf("              %s\n", commands[i]);
+        printf("\n%s", commands[i]);
     }
 }
 
@@ -43,10 +32,10 @@ void cmd_time() {
 }
 
 void process_cmd(char *cmd) {
-    if(memcmp(commands[0], cmd, strlen(commands[0])) == 0) {
+    if(memcmp(commands[0], cmd, strlen(commands[0])+1) == 0) {
         cmd_help();
     }
-    else if(memcmp(commands[1], cmd, strlen(commands[1])) == 0) {
+    else if(memcmp(commands[1], cmd, strlen(commands[0])+1) == 0) {
         cmd_time();
     }
     else if(memcmp('\n', cmd, 1) == 0) {}
@@ -56,25 +45,20 @@ void process_cmd(char *cmd) {
 }
 
 // For sending a char to the shell
->>>>>>> strange stuff with git. Done first draft of shell
 void shell_send_char(const char c) {
-    static char current_input[32];
+    static char         current_input[32];
     static unsigned int cur_input_index = 0;
-
+    
     if(c == '\n') {
         current_input[cur_input_index] = '\0';
-<<<<<<< 23c71b83de8013eb3f120818ea855563bfe29884
-        process_cmd();
-    }
-    current_input[cur_input_index] = c;
-    cur_input_index += 1;
-    putchar(c);
-=======
-        
         printf("\n");
         process_cmd(current_input);
         cur_input_index = 0;
         printf("\n%s", _prompt);
+    }
+    else if(c == '\b') {
+        cur_input_index -= 1;
+        putchar(c);
     }
     else
     {
@@ -82,22 +66,14 @@ void shell_send_char(const char c) {
         cur_input_index += 1;
         putchar(c);
     }
->>>>>>> strange stuff with git. Done first draft of shell
 }
 
 void init_shell(const char* prompt) {
-    int title_len = sizeof(title)/sizeof(title[0]);
-<<<<<<< 23c71b83de8013eb3f120818ea855563bfe29884
-=======
+    int title_len = sizeof(_title)/sizeof(_title[0]);
     _prompt = prompt;
->>>>>>> strange stuff with git. Done first draft of shell
 
     for(int i=0; i<title_len; i++) {
-        printf("%s\n", title[i]);
+        printf("%s\n", _title[i]);
     }
-<<<<<<< 23c71b83de8013eb3f120818ea855563bfe29884
-    printf("%s", prompt);
-=======
     printf("%s", _prompt);
->>>>>>> strange stuff with git. Done first draft of shell
 }

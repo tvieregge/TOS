@@ -100,43 +100,37 @@ static int _kkybrd_scancode_std [] = {
 };
 
 /* Handles the keyboard interrupt */
-void kb_irq_handler(struct regs *r)
-{
+void kb_irq_handler(struct regs *r) {
     static bool extended = false;
     uint8_t scancode;
     uint8_t kb_ctrl_status = inb(KB_CTRL_PORT); 
     bool kb_ctrl_buf_full = kb_ctrl_status & KB_CTRL_OUT_BUF_MASK;
 
-    if(!kb_ctrl_buf_full)
-    {
+    if(!kb_ctrl_buf_full) {
         return; // Nothing to read, no reason to be here
     }
 
     // If there's data, read it
     scancode = inb(KB_ENC_PORT);
 
-    if(extended)
-    {
+    if(extended) {
         extended = false;
         return; // Don't support thses yet
     }
 
-    if(scancode == 0xE0 || scancode == 0xE1)
-    {
+    if(scancode == 0xE0 || scancode == 0xE1) {
         extended = true; // Throw out the next one
         return;
     }
 
     // Do noting with key releases for now
     if (scancode & 0x80) {}
-    else
-    {
+    else {
         shell_send_char(_kkybrd_scancode_std[scancode]);
     }
 }
 
 /* Installs the keyboard handler into IRQ1 */
-void KB_init()
-{
+void KB_init() {
     install_irq_handler(1, kb_irq_handler);
 }
