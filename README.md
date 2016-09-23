@@ -1,6 +1,6 @@
 About
 =====
-TOS is a hobby operating system writtne in C and assembly (GAS)
+TOS is a hobby operating system written in C and assembly (GAS)
 
 The currently implemented features are
 * Bringing up the CPU (GDT, IDT)
@@ -29,4 +29,4 @@ file layout and very basic libc requirments
 * The OS Development Series from brokenthorn.com for
 most of the knowledge, especially on the CPU bring up
 * Bran's Kernel Development Tutorial from www.osdever.net
-for the inturrupt set up and some very repetitive assembly
+for the interrupt set up and some very repetitive assembly
