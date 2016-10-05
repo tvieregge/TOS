@@ -1,7 +1,14 @@
 #include <kernel/shell.h>
 #include <kernel/tty.h>
+#include <kernel/kernel.h>
 
 #include "string.h"
+
+/* 
+ * A very simple event driven shell for testing commands.
+ * To be completely redone once it becomes more usefull ( when
+ * programs can be loaded.
+ */
 
 static char* _prompt = '\0';
 
@@ -13,13 +20,14 @@ char const * const _title[] = {
 "/_/  \\____//____/"
 }; 
 
-char* commands[] = {
+char *commands[] = {
     "help",
     "uptime"
 };
 
 void cmd_help() {
     int num_commands = (sizeof commands) / (sizeof commands[0]);
+
     printf("Commands are:");
     for(int i=0; i<num_commands; ++i) {
         printf("\n%s", commands[i]);
@@ -28,17 +36,28 @@ void cmd_help() {
 
 void cmd_time() {
     unsigned int ticks = timer_get_uptime();
+
     printf("Uptime: %d ticks", ticks);
 }
 
+int compare_cmd(char *unknown, char *known) {
+    size_t min;
+
+    min = min(strlen(known), strlen(unknown));
+    return memcmp(known, unknown, min+1);
+}
+
 void process_cmd(char *cmd) {
-    if(memcmp(commands[0], cmd, strlen(commands[0])+1) == 0) {
+
+    if(compare_cmd(cmd, commands[0]) == 0) {
         cmd_help();
     }
-    else if(memcmp(commands[1], cmd, strlen(commands[0])+1) == 0) {
+    else if(compare_cmd(cmd, commands[1]) == 0) {
         cmd_time();
     }
-    else if(memcmp('\n', cmd, 1) == 0) {}
+    else if(compare_cmd(cmd, '\n') == 0) {
+        // empty command
+    }
     else {
         printf("Unrecognized input");
     }
@@ -57,7 +76,11 @@ void shell_send_char(const char c) {
         printf("\n%s", _prompt);
     }
     else if(c == '\b') {
-        cur_input_index -= 1;
+        if(cur_input_index == 0) {
+        }
+        else {
+            cur_input_index -= 1;
+        }
         putchar(c);
     }
     else
@@ -70,6 +93,7 @@ void shell_send_char(const char c) {
 
 void init_shell(const char* prompt) {
     int title_len = sizeof(_title)/sizeof(_title[0]);
+
     _prompt = prompt;
 
     for(int i=0; i<title_len; i++) {
