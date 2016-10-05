@@ -1,6 +1,7 @@
 About
 =====
 TOS is a hobby operating system written in C and assembly (GAS).
+
 *If you're looking for the code I've written, most of it is in kernel/arch/i386*
 
 The currently implemented features are
