@@ -7,7 +7,7 @@
 isr_handler_routine irq_handlers[PIC_NUM_INTERRUPTS] = {0}; 
 
 void isr_handler(struct regs* r) {
-    kpanic("exception received");
+    kpanic("exception received, don't recover yet");
 }
 
 void install_irq_handler(int i, isr_handler_routine irq_handler) {
@@ -27,8 +27,5 @@ void irq_server(struct regs* r) {
         irq_handler(r);
     }
 
-    if (r->int_no >= 40) {
-        outb(0xA0, 0x20);
-    }
-    outb(0x20, 0x20);
+    pic_eoi(r->int_no);
 }
