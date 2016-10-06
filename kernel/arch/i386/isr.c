@@ -1,12 +1,13 @@
 #include "isr.h"
 #include "pic.h"
 #include <stddef.h>
+#include <kernel/panic.h>
+#include <stdio.h>
 
 isr_handler_routine irq_handlers[PIC_NUM_INTERRUPTS] = {0}; 
 
-void fault_handler(struct regs* r) {
-	printf("Exception: %c\n", r->int_no);
-	for(;;); // No way to recover yet
+void isr_handler(struct regs* r) {
+    kpanic("exception received");
 }
 
 void install_irq_handler(int i, isr_handler_routine irq_handler) {

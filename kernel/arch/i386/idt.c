@@ -50,6 +50,7 @@ void idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)()) {
  * All the declarations for the ASM functions and the set_isrs function
  * Down here to cut down on clutter, very repetitive
  */
+void _isr0();
 void _isr1();
 void _isr2();
 void _isr3();
@@ -102,6 +103,7 @@ void _irq15();
 
 void set_isrs(uint16_t code_selector) {
     const int FLAGS = IDT_DESC_PRESENT | IDT_DESC_BIT32;
+	idt_set_entry (0, FLAGS, code_selector, _isr0);
 	idt_set_entry (1, FLAGS, code_selector, _isr1);
 	idt_set_entry (2, FLAGS, code_selector, _isr2);
 	idt_set_entry (3, FLAGS, code_selector, _isr3);

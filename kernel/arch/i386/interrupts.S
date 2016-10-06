@@ -266,7 +266,7 @@ isr_common_stub:
     mov %ax, %gs
     mov %esp, %eax
     push %eax
-    call fault_handler
+    call isr_handler
     pop %eax
     pop %gs
     pop %fs

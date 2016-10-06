@@ -9,8 +9,8 @@
 
 void kernel_early(void)
 {
+	terminal_initialize(); // needed first for debug output
     init_hal();
-	terminal_initialize();
     init_shell("> ");
 }
 
