@@ -4,11 +4,12 @@
 #include "idt.h"
 #include "isr.h"
 #include <kernel/hal.h>
+#include <kernel/panic.h>
 
 static struct idt_descriptor	_idt[MAX_INTERRUPTS];
 static struct idtr				_idtr;
 
-int idt_initialize (uint16_t code_selector) {
+void idt_initialize (uint16_t code_selector) {
 
 	//set up idtr for processor
 	_idtr.limit = sizeof (struct idt_descriptor) * MAX_INTERRUPTS-1;
@@ -17,29 +18,27 @@ int idt_initialize (uint16_t code_selector) {
 
     set_isrs(code_selector);
  
-	//install our idt
+	//install idt
 	__asm__( "lidt (%0)" :: "m" (_idtr) );
- 
-	return 0;
 }
 
 // Installs the ISR into the idt array
-int idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)()) {
+void idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)()) {
  
 	if(i > MAX_INTERRUPTS) {
-        //kpanic("MAX_INTERRUPTS exceded");
+        kpanic("MAX_INTERRUPTS exceded");
     }
  
 	if(irq == NULL) {
-		return -2;
+        kpanic("irq == NULL");
     }
  
 	//get base address of interrupt handler
 	uint64_t uiBase     = (uint64_t)&(*irq);
  
 	// store base address into idt
-	_idt[i].baseLo		=	uiBase & 0xffff;
-	_idt[i].baseHi		=	(uiBase >> 16) & 0xffff;
+	_idt[i].offset_low	=	uiBase & 0xffff;
+	_idt[i].offset_high	=	(uiBase >> 16) & 0xffff;
 	_idt[i].reserved	=	0;
 	_idt[i].flags		=	flags;
     _idt[i].sel		    =	sel;

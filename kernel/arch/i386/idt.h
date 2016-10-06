@@ -15,20 +15,20 @@
 
 struct __attribute__ ((__packed__)) idt_descriptor {
  
-	//! bits 0-16 of interrupt routine (ir) address
-	uint16_t		baseLo;
+	// bits 0-16 of interrupt routine (ir) address
+	uint16_t		offset_low;
  
-	//! code selector in gdt
+	// code segment selector
 	uint16_t		sel;
  
-	//! reserved, shold be 0
+	// reserved, shold be 0
 	uint8_t			reserved;
  
-	//! bit flags. Set with flags above
+	// bit flags. Set with flags above
 	uint8_t			flags;
  
-	//! bits 16-32 of ir address
-	uint16_t		baseHi;
+	// bits 16-32 of ir address
+	uint16_t		offset_high;
 };
 
 struct __attribute__((__packed__)) idtr {
@@ -40,8 +40,8 @@ struct __attribute__((__packed__)) idtr {
 	uint32_t		base;
 };
 
-int idt_initialize (uint16_t codeSel);
-int idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)());
+void idt_initialize (uint16_t codeSel);
+void idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)());
 void set_isrs(uint16_t codeSel);
 
 #endif

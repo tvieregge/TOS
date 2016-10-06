@@ -30,6 +30,7 @@ OBJS:=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
 kernel/shell.o \
+kernel/panic.o \
 
 ALL_OUR_OBJS:=\
 $(OBJS) \

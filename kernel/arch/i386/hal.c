@@ -9,10 +9,7 @@ int init_hal() {
 
     int ret_val;
 
-	ret_val = idt_initialize(0x8);
-    if (ret_val != 0) {
-        return -1;
-    }
+	idt_initialize(0x8);
 
 	ret_val = i86_init_gdt();
     if (ret_val != 0) {
@@ -38,7 +35,8 @@ void outb(uint16_t port, uint8_t val) {
         __asm__ volatile ( "outb %0, %1" : : "a"(val), "Nd"(port) );
         /* There's an outb %al, $imm8  encoding, for compile-time constant
          * port numbers that fit in 8b.  (N constraint).
-         * Wider immediate constants would be truncated at assemble-time (e.g. "i" constraint).
+         * Wider immediate constants would be truncated at assemble-time
+         * (e.g. "i" constraint).
          * The  outb  %al, %dx  encoding is the only option for all other cases.
          * %1 expands to %dx because  port  is a uint16_t.  %w1 could be
          * used if we had the port number a wider C type */
