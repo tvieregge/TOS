@@ -16,7 +16,6 @@ struct regs
 typedef void (*isr_handler_routine)(struct regs* r);
 
 void fault_handler();
-int set_isrs(uint16_t codeSel);
 void install_irq_handler(int i, isr_handler_routine irq_handler);
 void uninstall_irq_handler(int i);
 

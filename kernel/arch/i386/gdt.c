@@ -7,24 +7,26 @@ static uint64_t gdt[MAX_DESCRIPTORS];
 static struct   gdtr gdtr;
 
 int i86_init_gdt() {
+    const uint32_t COARSE_LIMIT = 0x000FFFFF;
 	// set up gdtr
 	gdtr.m_limit = sizeof(uint64_t) * MAX_DESCRIPTORS-1;
 	gdtr.m_base = (uint32_t)&gdt[0];
 
     // Flat 4GB adress space
 	gdt[0] = create_descriptor(0, 0, 0);	// set null descriptor
-    gdt[1] = create_descriptor(0, 0x000FFFFF, (GDT_CODE_PL0));
-    gdt[2] = create_descriptor(0, 0x000FFFFF, (GDT_DATA_PL0));
-    gdt[3] = create_descriptor(0, 0x000FFFFF, (GDT_CODE_PL3));
-    gdt[4] = create_descriptor(0, 0x000FFFFF, (GDT_DATA_PL3));
+    gdt[1] = create_descriptor(0, COARSE_LIMIT, (GDT_CODE_PL0));
+    gdt[2] = create_descriptor(0, COARSE_LIMIT, (GDT_DATA_PL0));
+    gdt[3] = create_descriptor(0, COARSE_LIMIT, (GDT_CODE_PL3));
+    gdt[4] = create_descriptor(0, COARSE_LIMIT, (GDT_DATA_PL3));
 
-    //TODO: combine these two lines
+    //TODO: Push this line into gdt_flush
 	__asm__( "lgdt (%0)" :: "m" (gdtr) );
     gdt_flush();
 
 	return 0;
 }
 
+// From http://wiki.osdev.org/GDT_Tutorial
 uint64_t create_descriptor(uint32_t base, uint32_t limit, uint16_t flag)
 {
     uint64_t descriptor;

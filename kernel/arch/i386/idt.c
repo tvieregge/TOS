@@ -5,20 +5,17 @@
 #include "isr.h"
 #include <kernel/hal.h>
 
-// interrupt descriptor table
 static struct idt_descriptor	_idt[MAX_INTERRUPTS];
- 
-// idtr structure used to help define the cpu's idtr register
 static struct idtr				_idtr;
 
-int idt_initialize (uint16_t codeSel) {
+int idt_initialize (uint16_t code_selector) {
 
 	//set up idtr for processor
 	_idtr.limit = sizeof (struct idt_descriptor) * MAX_INTERRUPTS-1;
 	_idtr.base	= (uint32_t)&_idt[0];
 	memset((void*)&_idt[0], 0, sizeof(struct idt_descriptor) * MAX_INTERRUPTS-1);
 
-    set_isrs(codeSel);
+    set_isrs(code_selector);
  
 	//install our idt
 	__asm__( "lidt (%0)" :: "m" (_idtr) );
@@ -30,7 +27,7 @@ int idt_initialize (uint16_t codeSel) {
 int idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)()) {
  
 	if(i > MAX_INTERRUPTS) {
-		return -1;
+        //kpanic("MAX_INTERRUPTS exceded");
     }
  
 	if(irq == NULL) {
@@ -104,56 +101,54 @@ void _irq13();
 void _irq14(); 
 void _irq15(); 
 
-int set_isrs(uint16_t codeSel) {
+void set_isrs(uint16_t code_selector) {
     const int FLAGS = IDT_DESC_PRESENT | IDT_DESC_BIT32;
-	idt_set_entry (1, FLAGS, codeSel, _isr1);
-	idt_set_entry (2, FLAGS, codeSel, _isr2);
-	idt_set_entry (3, FLAGS, codeSel, _isr3);
-	idt_set_entry (4, FLAGS, codeSel, _isr4);
-	idt_set_entry (5, FLAGS, codeSel, _isr5);
-	idt_set_entry (6, FLAGS, codeSel, _isr6);
-	idt_set_entry (7, FLAGS, codeSel, _isr7);
-	idt_set_entry (8, FLAGS, codeSel, _isr8);
-	idt_set_entry (9, FLAGS, codeSel, _isr9);
-	idt_set_entry (10, FLAGS, codeSel, _isr10);
-	idt_set_entry (11, FLAGS, codeSel, _isr11);
-	idt_set_entry (12, FLAGS, codeSel, _isr12);
-	idt_set_entry (13, FLAGS, codeSel, _isr13);
-	idt_set_entry (14, FLAGS, codeSel, _isr14);
-	idt_set_entry (15, FLAGS, codeSel, _isr15);
-	idt_set_entry (16, FLAGS, codeSel, _isr16);
-	idt_set_entry (17, FLAGS, codeSel, _isr17);
-	idt_set_entry (18, FLAGS, codeSel, _isr18);
-	idt_set_entry (19, FLAGS, codeSel, _isr19);
-	idt_set_entry (20, FLAGS, codeSel, _isr20);
-	idt_set_entry (21, FLAGS, codeSel, _isr21);
-	idt_set_entry (22, FLAGS, codeSel, _isr22);
-	idt_set_entry (23, FLAGS, codeSel, _isr23);
-	idt_set_entry (24, FLAGS, codeSel, _isr24);
-	idt_set_entry (25, FLAGS, codeSel, _isr25);
-	idt_set_entry (26, FLAGS, codeSel, _isr26);
-	idt_set_entry (27, FLAGS, codeSel, _isr27);
-	idt_set_entry (28, FLAGS, codeSel, _isr28);
-	idt_set_entry (29, FLAGS, codeSel, _isr29);
-	idt_set_entry (30, FLAGS, codeSel, _isr30);
-	idt_set_entry (31, FLAGS, codeSel, _isr31);
+	idt_set_entry (1, FLAGS, code_selector, _isr1);
+	idt_set_entry (2, FLAGS, code_selector, _isr2);
+	idt_set_entry (3, FLAGS, code_selector, _isr3);
+	idt_set_entry (4, FLAGS, code_selector, _isr4);
+	idt_set_entry (5, FLAGS, code_selector, _isr5);
+	idt_set_entry (6, FLAGS, code_selector, _isr6);
+	idt_set_entry (7, FLAGS, code_selector, _isr7);
+	idt_set_entry (8, FLAGS, code_selector, _isr8);
+	idt_set_entry (9, FLAGS, code_selector, _isr9);
+	idt_set_entry (10, FLAGS, code_selector, _isr10);
+	idt_set_entry (11, FLAGS, code_selector, _isr11);
+	idt_set_entry (12, FLAGS, code_selector, _isr12);
+	idt_set_entry (13, FLAGS, code_selector, _isr13);
+	idt_set_entry (14, FLAGS, code_selector, _isr14);
+	idt_set_entry (15, FLAGS, code_selector, _isr15);
+	idt_set_entry (16, FLAGS, code_selector, _isr16);
+	idt_set_entry (17, FLAGS, code_selector, _isr17);
+	idt_set_entry (18, FLAGS, code_selector, _isr18);
+	idt_set_entry (19, FLAGS, code_selector, _isr19);
+	idt_set_entry (20, FLAGS, code_selector, _isr20);
+	idt_set_entry (21, FLAGS, code_selector, _isr21);
+	idt_set_entry (22, FLAGS, code_selector, _isr22);
+	idt_set_entry (23, FLAGS, code_selector, _isr23);
+	idt_set_entry (24, FLAGS, code_selector, _isr24);
+	idt_set_entry (25, FLAGS, code_selector, _isr25);
+	idt_set_entry (26, FLAGS, code_selector, _isr26);
+	idt_set_entry (27, FLAGS, code_selector, _isr27);
+	idt_set_entry (28, FLAGS, code_selector, _isr28);
+	idt_set_entry (29, FLAGS, code_selector, _isr29);
+	idt_set_entry (30, FLAGS, code_selector, _isr30);
+	idt_set_entry (31, FLAGS, code_selector, _isr31);
 
-	idt_set_entry (32, FLAGS, codeSel, _irq0);
-	idt_set_entry (33, FLAGS, codeSel, _irq1);
-	idt_set_entry (34, FLAGS, codeSel, _irq2);
-	idt_set_entry (35, FLAGS, codeSel, _irq3);
-	idt_set_entry (36, FLAGS, codeSel, _irq4);
-	idt_set_entry (37, FLAGS, codeSel, _irq5);
-	idt_set_entry (38, FLAGS, codeSel, _irq6);
-	idt_set_entry (39, FLAGS, codeSel, _irq7);
-	idt_set_entry (40, FLAGS, codeSel, _irq8);
-	idt_set_entry (41, FLAGS, codeSel, _irq9);
-	idt_set_entry (42, FLAGS, codeSel, _irq10);
-	idt_set_entry (43, FLAGS, codeSel, _irq11);
-	idt_set_entry (44, FLAGS, codeSel, _irq12);
-	idt_set_entry (45, FLAGS, codeSel, _irq13);
-	idt_set_entry (46, FLAGS, codeSel, _irq14);
-	idt_set_entry (47, FLAGS, codeSel, _irq15);
-    
-    return 0;
+	idt_set_entry (32, FLAGS, code_selector, _irq0);
+	idt_set_entry (33, FLAGS, code_selector, _irq1);
+	idt_set_entry (34, FLAGS, code_selector, _irq2);
+	idt_set_entry (35, FLAGS, code_selector, _irq3);
+	idt_set_entry (36, FLAGS, code_selector, _irq4);
+	idt_set_entry (37, FLAGS, code_selector, _irq5);
+	idt_set_entry (38, FLAGS, code_selector, _irq6);
+	idt_set_entry (39, FLAGS, code_selector, _irq7);
+	idt_set_entry (40, FLAGS, code_selector, _irq8);
+	idt_set_entry (41, FLAGS, code_selector, _irq9);
+	idt_set_entry (42, FLAGS, code_selector, _irq10);
+	idt_set_entry (43, FLAGS, code_selector, _irq11);
+	idt_set_entry (44, FLAGS, code_selector, _irq12);
+	idt_set_entry (45, FLAGS, code_selector, _irq13);
+	idt_set_entry (46, FLAGS, code_selector, _irq14);
+	idt_set_entry (47, FLAGS, code_selector, _irq15);
 }

@@ -65,8 +65,4 @@ struct __attribute__((__packed__)) gdtr {
 	uint32_t		m_base;
 };
 
-#ifdef TEST
-void reload_segments();
-#endif
-
 #endif

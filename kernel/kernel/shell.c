@@ -12,13 +12,13 @@
 
 static char* _prompt = '\0';
 
-char const * const _title[] = {
-"  __________  _____",
-" /_  __/ __ \\/ ___/",
-"  / / / / / /\\__ \\ ",
-" / / / /_/ /___/ / ",
-"/_/  \\____//____/"
-}; 
+char* _title = 
+"  __________  _____  \n\
+ /_  __/ __ \\/ ___/ \n\
+  / / / / / /\\__ \\ \n\
+ / / / /_/ /___/ /   \n\
+/_/  \\____//____/";
+ 
 
 char *commands[] = {
     "help",
@@ -92,12 +92,7 @@ void shell_send_char(const char c) {
 }
 
 void init_shell(const char* prompt) {
-    int title_len = sizeof(_title)/sizeof(_title[0]);
-
     _prompt = prompt;
-
-    for(int i=0; i<title_len; i++) {
-        printf("%s\n", _title[i]);
-    }
+    printf("%s\n", _title);
     printf("%s", _prompt);
 }
