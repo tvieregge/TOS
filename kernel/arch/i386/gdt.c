@@ -6,7 +6,7 @@ void gdt_flush();
 static uint64_t gdt[MAX_DESCRIPTORS];
 static struct   gdtr gdtr;
 
-int i86_init_gdt() {
+int gdt_init() {
     const uint32_t COARSE_LIMIT = 0x000FFFFF;
 	// set up gdtr
 	gdtr.m_limit = sizeof(uint64_t) * MAX_DESCRIPTORS-1;

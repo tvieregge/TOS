@@ -3,31 +3,32 @@
 #include "pic.h"
 #include "pit.h"
 #include "kb.h"
+#include <kernel/hal.h>
 
 int init_hal() {
-    __asm__( "cli" );
 
-    int ret_val;
+    irq_disable();
 
-	idt_initialize(0x8);
+	idt_init(0x8);
+	gdt_init();
+    pic_init();
+    pit_init();
+    kb_init();
 
-	ret_val = i86_init_gdt();
-    if (ret_val != 0) {
-        return -2;
-    }
-
-    PIC_init();
-    PIT_init();
-
-    KB_init();
-
-    __asm__( "sti" );
-
+    irq_enable();
     return 0;
 }
 
 unsigned int timer_get_uptime() {
-    return PIT_get_uptime();
+    return pit_get_uptime();
+}
+
+void irq_disable() {
+    __asm__( "cli" );
+}
+
+void irq_enable() {
+    __asm__( "sti" );
 }
 
 // outb/inb from OSDev wiki

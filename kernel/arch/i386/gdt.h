@@ -53,7 +53,7 @@
  
 #define MAX_DESCRIPTORS 5
 
-int      i86_init_gdt();
+int      gdt_init();
 uint64_t create_descriptor(uint32_t base, uint32_t limit, uint16_t flag);
 
 struct __attribute__((__packed__)) gdtr {

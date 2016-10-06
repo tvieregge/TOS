@@ -8,15 +8,15 @@
 
 static unsigned int _ticks = 0;
 
-void PIT_irq_handler(struct regs* r) {
+void pit_irq_handler(struct regs* r) {
     _ticks += 1;
 }
 
-unsigned int PIT_get_uptime() {
+unsigned int pit_get_uptime() {
     return _ticks;
 }
 
-void PIT_set_phase(uint32_t hz) {
+void pit_set_phase(uint32_t hz) {
     int div = PIT_FREQ / hz;
     uint8_t ocw = PIT_WRITE_LSB_MSB | PIT_WRITE_COUNTER_0 |
                   PIT_BINARY_MODE   | PIT_SQUARE_WAVE_MODE;
@@ -26,7 +26,7 @@ void PIT_set_phase(uint32_t hz) {
     outb(PIT_REG_COUNTER_0, div >> 8);
 }
 
-void PIT_init() {
-    PIT_set_phase(100);
-    install_irq_handler(0, PIT_irq_handler);
+void pit_init() {
+    pit_set_phase(100);
+    install_irq_handler(0, pit_irq_handler);
 }

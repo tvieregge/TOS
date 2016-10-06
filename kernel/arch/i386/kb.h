@@ -1,7 +1,7 @@
 #ifndef KB_H
 #define KB_H
 
-void KB_init();
+void kb_init();
 
 // From broken thron OSDev Tutorial Demo #14
 enum KEYCODE {

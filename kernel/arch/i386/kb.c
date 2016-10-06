@@ -131,6 +131,6 @@ void kb_irq_handler(struct regs *r) {
 }
 
 /* Installs the keyboard handler into IRQ1 */
-void KB_init() {
+void kb_init() {
     install_irq_handler(1, kb_irq_handler);
 }

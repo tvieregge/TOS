@@ -9,7 +9,9 @@
 static struct idt_descriptor	_idt[MAX_INTERRUPTS];
 static struct idtr				_idtr;
 
-void idt_initialize (uint16_t code_selector) {
+void set_isrs(uint16_t codeSel);
+
+void idt_init(uint16_t code_selector) {
 
 	//set up idtr for processor
 	_idtr.limit = sizeof (struct idt_descriptor) * MAX_INTERRUPTS-1;

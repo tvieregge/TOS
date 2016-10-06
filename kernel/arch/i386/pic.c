@@ -17,7 +17,7 @@
 #define PIC2_OFFSET 0x28
 
 // TODO: add io_wait between writes to PIC
-void PIC_init(void) {
+void pic_init(void) {
     uint8_t icw = ICW1_INIT | ICW1_ICW4_EXPECT;
 
 	outb(PIC1_COMMAND, icw);      // starts initialization sequence (in cascade mode)

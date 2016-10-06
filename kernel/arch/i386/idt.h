@@ -40,8 +40,7 @@ struct __attribute__((__packed__)) idtr {
 	uint32_t		base;
 };
 
-void idt_initialize (uint16_t codeSel);
+void idt_init(uint16_t codeSel);
 void idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)());
-void set_isrs(uint16_t codeSel);
 
 #endif

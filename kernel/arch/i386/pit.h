@@ -8,7 +8,7 @@
 #define     PIT_BINARY_MODE         0x00
 #define     PIT_SQUARE_WAVE_MODE    0x06
 
-void PIT_init();
-unsigned int PIT_get_uptime();
+void pit_init();
+unsigned int pit_get_uptime();
 
 #endif
