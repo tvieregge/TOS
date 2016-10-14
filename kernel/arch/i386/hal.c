@@ -5,6 +5,14 @@
 #include "kb.h"
 #include <kernel/hal.h>
 
+/*
+ * The implementation of the Hardware Abstraction Layer.
+ * This will include all the hardware specific functions
+ * available.
+ *
+ * This will liekly be radically changed as the OS evolves
+ */
+
 int init_hal() {
 
     irq_disable();

@@ -4,6 +4,13 @@
 #include <stdint.h>
 
 /*
+ * Set up the GDT (Global Descriptor Table)
+ * The GDT is unused since paging makes it mostly obsolete,
+ * so all we do here is set up the entire adress space as
+ * flat and untranslated.
+ */
+
+/*
  *  Each define here is for a specific flag in the descriptor.
  *  Refer to the intel documentation for a description of what each one does.
  */

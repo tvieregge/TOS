@@ -1,6 +1,13 @@
 #include "gdt.h"
 #include "stdlib.h"
 
+/*
+ * Set up the GDT (Global Descriptor Table)
+ * The GDT is unused since paging makes it mostly obsolete,
+ * so all we do here is set up the entire adress space as
+ * flat and untranslated.
+ */
+
 void gdt_flush();
 
 static uint64_t gdt[MAX_DESCRIPTORS];
