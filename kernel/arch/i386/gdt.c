@@ -8,6 +8,7 @@ static struct   gdtr gdtr;
 
 int gdt_init() {
     const uint32_t COARSE_LIMIT = 0x000FFFFF;
+
 	// set up gdtr
 	gdtr.m_limit = sizeof(uint64_t) * MAX_DESCRIPTORS-1;
 	gdtr.m_base = (uint32_t)&gdt[0];

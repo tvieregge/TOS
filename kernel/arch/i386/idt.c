@@ -6,6 +6,8 @@
 #include <kernel/hal.h>
 #include <kernel/panic.h>
 
+// The PIC has less interrupts available than MAX_INTERRUPTS (since that for x86 ingeneral)
+// It should be an issue, we will just have too bit a IDT array for now
 static struct idt_descriptor	_idt[MAX_INTERRUPTS];
 static struct idtr				_idtr;
 
@@ -27,7 +29,7 @@ void idt_init(uint16_t code_selector) {
 // Installs the ISR into the idt array
 void idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)()) {
  
-	if(i > MAX_INTERRUPTS) {
+	if(i >= MAX_INTERRUPTS) {
         kpanic("MAX_INTERRUPTS exceded");
     }
  
