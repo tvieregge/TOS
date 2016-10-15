@@ -1,4 +1,6 @@
 #!/bin/sh
+# Cleans the source tree
+
 set -e
 . ./config.sh
 

@@ -1,4 +1,7 @@
 #!/bin/sh
+# Builds the executable and installs the headers.
+# Does not update the ISO
+
 set -e
 
 . ./config.sh
