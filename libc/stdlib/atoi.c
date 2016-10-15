@@ -1,3 +1,8 @@
+/*
+ * Found this online as a stopgap.
+ * will replace with strto* familly or use a different already made libc
+ */
+
 char tbuf[32];
 char bchars[] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
 
