@@ -1,3 +1,8 @@
+/*
+ *  The keyboard driver. Currently it directly calls the 
+ *  shell (the shell is interrupt driven).
+ */
+
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>

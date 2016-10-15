@@ -1,3 +1,9 @@
+/*
+ * PIT (Programmable Interrupt Timer).
+ * There is functions for setup and for building
+ * the more abstracted timeing functions
+ */
+
 #ifndef PIT_H
 #define PIT_H
 

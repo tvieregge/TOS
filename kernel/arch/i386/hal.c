@@ -1,10 +1,3 @@
-#include "gdt.h"
-#include "idt.h"
-#include "pic.h"
-#include "pit.h"
-#include "kb.h"
-#include <kernel/hal.h>
-
 /*
  * The implementation of the Hardware Abstraction Layer.
  * This will include all the hardware specific functions
@@ -12,6 +5,13 @@
  *
  * This will liekly be radically changed as the OS evolves
  */
+
+#include "gdt.h"
+#include "idt.h"
+#include "pic.h"
+#include "pit.h"
+#include "kb.h"
+#include <kernel/hal.h>
 
 int init_hal() {
 

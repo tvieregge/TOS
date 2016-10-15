@@ -1,3 +1,8 @@
+/*
+ * The functions pertaining to the PIC (Programmable 
+ * Interrupt Controller). Mostly setup
+ */
+
 #ifndef PIC_H
 #define PIC_H
 

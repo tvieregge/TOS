@@ -1,3 +1,9 @@
+/* 
+ * This file includes all the setup fo the IDT (interrupts Descriptor Table)
+ * The IDT contains the ISRs (Interrupt Service Routines) that are called when 
+ * an interrupt is handled
+ */
+
 #include "stdio.h"
 #include "string.h"
 #include "stdlib.h"

@@ -1,12 +1,12 @@
-#include "gdt.h"
-#include "stdlib.h"
-
 /*
  * Set up the GDT (Global Descriptor Table)
  * The GDT is unused since paging makes it mostly obsolete,
  * so all we do here is set up the entire adress space as
  * flat and untranslated.
  */
+
+#include "gdt.h"
+#include "stdlib.h"
 
 void gdt_flush();
 

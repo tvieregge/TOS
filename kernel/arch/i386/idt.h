@@ -1,3 +1,9 @@
+/* 
+ * This file includes all the setup fo the IDT (interrupts Descriptor Table)
+ * The IDT contains the ISRs (Interrupt Service Routines) that are called when 
+ * an interrupt is handled
+ */
+
 #ifndef IDT_H
 #define IDT_H
 
@@ -5,7 +11,7 @@
 
 #define MAX_INTERRUPTS		256
 
-//! must be in the format 0D110, where D is descriptor type
+// must be in the format 0D110, where D is descriptor type
 #define IDT_DESC_BIT16		0x06	//00000110
 #define IDT_DESC_BIT32		0x0E	//00001110
 #define IDT_DESC_RING1		0x40	//01000000

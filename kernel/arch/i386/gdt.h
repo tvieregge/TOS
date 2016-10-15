@@ -1,14 +1,14 @@
-#ifndef GDT_H
-#define GDT_H
-
-#include <stdint.h>
-
 /*
  * Set up the GDT (Global Descriptor Table)
  * The GDT is unused since paging makes it mostly obsolete,
  * so all we do here is set up the entire adress space as
  * flat and untranslated.
  */
+
+#ifndef GDT_H
+#define GDT_H
+
+#include <stdint.h>
 
 /*
  *  Each define here is for a specific flag in the descriptor.

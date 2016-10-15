@@ -1,3 +1,8 @@
+/*
+ * The functions pertaining to the PIC (Programmable 
+ * Interrupt Controller). Mostly setup
+ */
+
 #include "pic.h"
 #include <kernel/hal.h>
 #include <stdint.h>
@@ -33,6 +38,7 @@ void pic_init(void) {
 	outb(PIC2_DATA, ICW4_8086);
 }
 
+// Sends the correct End Of Interrupt command to the PIC
 void pic_eoi(unsigned int int_no) {
     if (int_no >= 40) {
         outb(PIC2, 0x20);
