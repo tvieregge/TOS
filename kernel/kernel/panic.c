@@ -1,3 +1,9 @@
+/*
+ *  The kernel panic function (kpanic).
+ *  It is actually a macro that injects the called function
+ *  into the message.
+ */
+
 #include <kernel/panic.h>
 
 // kpanic is replaced with this function, with __func__ added

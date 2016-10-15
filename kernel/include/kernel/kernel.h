@@ -1,3 +1,7 @@
+/*
+ *  The entry point and main loop for the kernel
+ */
+
 #ifndef KERNEL_H
 #define KERNEL_H
 

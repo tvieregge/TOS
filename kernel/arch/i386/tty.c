@@ -1,3 +1,8 @@
+/*
+ * Basic functionality for writing to the terminal and
+ * initializing it. 
+ */
+
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>

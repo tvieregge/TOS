@@ -1,3 +1,9 @@
+/*
+ *  The kernel panic function (kpanic).
+ *  It is actually a macro that injects the called function
+ *  into the message.
+ */
+
 #ifndef PANIC_H
 #define PANIC_H
 

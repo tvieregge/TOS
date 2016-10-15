@@ -1,3 +1,8 @@
+# This file containes all the ISRs and IRQs
+# All they do is call a common stub which calls
+# a handler that determines the C function
+# which should be called
+
 .text
 .align   4
  

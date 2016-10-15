@@ -1,3 +1,8 @@
+/*
+ * This file has everything involved the ISRsv(Interrupt Service Routines)
+ * Mainly installing, uninstalling and calling the correct C function
+ */
+
 #include "isr.h"
 #include "pic.h"
 #include <stddef.h>

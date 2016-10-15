@@ -1,3 +1,8 @@
+/*
+ * Basic functionality for writing to the terminal and
+ * initializing it. 
+ */
+
 #ifndef _KERNEL_TTY_H
 #define _KERNEL_TTY_H
 

@@ -1,3 +1,8 @@
+/*
+ *  The keyboard driver. Currently it directly calls the 
+ *  shell (the shell is interrupt driven).
+ */
+
 #ifndef KB_H
 #define KB_H
 
