@@ -1,3 +1,7 @@
+/*
+ *  The entry point and main loop for the kernel
+ */
+
 #include <stddef.h>
 #include <stdint.h>
 #include <string.h>

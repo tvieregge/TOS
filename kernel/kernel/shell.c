@@ -1,14 +1,14 @@
+/* 
+ * A very simple event driven shell for testing commands.
+ * To be completely redone once it becomes more usefull (when
+ * programs can be loaded.
+ */
+
 #include <kernel/shell.h>
 #include <kernel/tty.h>
 #include <kernel/kernel.h>
 
 #include "string.h"
-
-/* 
- * A very simple event driven shell for testing commands.
- * To be completely redone once it becomes more usefull ( when
- * programs can be loaded.
- */
 
 static char* _prompt = '\0';
 
