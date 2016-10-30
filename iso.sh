@@ -1,4 +1,6 @@
 #!/bin/sh
+# Builds a new ISO. Also sets grub.cfg
+
 set -e
 . ./build.sh
 
