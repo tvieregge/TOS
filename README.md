@@ -22,6 +22,16 @@ A GCC cross compiler for i686-elf is required, and QEMU or some other way of run
 Then just run ./build to build and ./qemu if you have it installed to boot. The complete
 process can be found in the resources section.
 
+For Manjaro
+-----------
+If you happen to be buildiong in Manjaro (as I am) this is exactly what you need to do:
+
+* get the newest binutils from here: ftp://ftp.gnu.org/gnu/binutils/
+* get the newest gcc from here: ftp://ftp.gnu.org/gnu/gcc/
+* exstract them both into HOME/src
+* Follow these instruction starting at "The Build" : http://wiki.osdev.org/GCC_Cross-Compiler
+* install: qemu, xorriso, mtools
+
 Resources
 =========
 These are the resources I used for learning and examples
