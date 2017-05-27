@@ -60,6 +60,10 @@
  
 #define MAX_DESCRIPTORS 5
 
+// offsets into the GDT
+#define GDT_NULL_SEL        0x0
+#define GDT_CODE_SEL_1      0x8
+
 int      gdt_init();
 uint64_t create_descriptor(uint32_t base, uint32_t limit, uint16_t flag);
 

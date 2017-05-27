@@ -12,8 +12,8 @@
 #include <kernel/hal.h>
 #include <kernel/panic.h>
 
-// The PIC has less interrupts available than MAX_INTERRUPTS (since that for x86 ingeneral)
-// It should be an issue, we will just have too bit a IDT array for now
+// The PIC has less interrupts available than MAX_INTERRUPTS (since that's for x86 in general)
+// It shouldn't be an issue, we will just have too big an IDT array for now
 static struct idt_descriptor	_idt[MAX_INTERRUPTS];
 static struct idtr				_idtr;
 

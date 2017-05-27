@@ -24,7 +24,7 @@ process can be found in the resources section.
 
 For Manjaro
 -----------
-If you happen to be buildiong in Manjaro (as I am) this is exactly what you need to do:
+If you happen to be building on Manjaro (as I am) this is exactly what you need to do:
 
 * get the newest binutils from here: ftp://ftp.gnu.org/gnu/binutils/
 * get the newest gcc from here: ftp://ftp.gnu.org/gnu/gcc/

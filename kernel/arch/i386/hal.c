@@ -17,7 +17,7 @@ int init_hal() {
 
     irq_disable();
 
-	idt_init(0x8);
+	idt_init(GDT_CODE_SEL_1);
 	gdt_init();
     pic_init();
     pit_init();
