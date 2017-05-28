@@ -7,6 +7,8 @@
 #include <kernel/shell.h>
 #include <kernel/tty.h>
 #include <kernel/kernel.h>
+#include <kernel/hal.h>
+#include <stdio.h>
 
 #include "string.h"
 
@@ -28,7 +30,7 @@ char *commands[] = {
 void cmd_help() {
     int num_commands = (sizeof commands) / (sizeof commands[0]);
 
-    printf("Commands are:");
+    printf("%s", "Commands are:");
     for(int i=0; i<num_commands; ++i) {
         printf("\n%s", commands[i]);
     }
@@ -40,7 +42,7 @@ void cmd_time() {
     printf("Uptime: %d ticks", ticks);
 }
 
-int compare_cmd(char *unknown, char *known) {
+int compare_cmd(const char *unknown, const char *known) {
     size_t min;
 
     min = min(strlen(known), strlen(unknown));
@@ -55,7 +57,7 @@ void process_cmd(char *cmd) {
     else if(compare_cmd(cmd, commands[1]) == 0) {
         cmd_time();
     }
-    else if(compare_cmd(cmd, '\n') == 0) {
+    else if(compare_cmd(cmd, "") == 0) {
         // empty command
     }
     else {
@@ -91,7 +93,7 @@ void shell_send_char(const char c) {
     }
 }
 
-void init_shell(const char* prompt) {
+void init_shell(char* prompt) {
     _prompt = prompt;
     printf("%s\n", _title);
     printf("%s", _prompt);

@@ -5,6 +5,7 @@
  */
 
 #include <kernel/panic.h>
+#include <stdio.h>
 
 // kpanic is replaced with this function, with __func__ added
 // for the second argument. See the macro in panic.h for details

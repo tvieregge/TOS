@@ -10,6 +10,7 @@
 #include "kb.h"
 #include "isr.h"
 #include <kernel/shell.h>
+#include <kernel/hal.h>
 
 #define KB_CTRL_PORT         0x64
 #define KB_CTRL_OUT_BUF_MASK 0x01
@@ -105,7 +106,7 @@ static int _kkybrd_scancode_std [] = {
 };
 
 /* Handles the keyboard interrupt */
-void kb_irq_handler(struct regs *r) {
+void kb_irq_handler(__attribute__ ((unused)) struct regs *r) {
     static bool extended = false;
     uint8_t scancode;
     uint8_t kb_ctrl_status = inb(KB_CTRL_PORT); 

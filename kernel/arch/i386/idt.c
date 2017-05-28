@@ -44,7 +44,7 @@ void idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)()) {
     }
  
 	//get base address of interrupt handler
-	uint64_t uiBase     = (uint64_t)&(*irq);
+	uint32_t uiBase     = (uint32_t)&(*irq);
  
 	// store base address into idt
 	_idt[i].offset_low	=	uiBase & 0xffff;
@@ -52,8 +52,6 @@ void idt_set_entry (uint32_t i, uint16_t flags, uint16_t sel, void (*irq)()) {
 	_idt[i].reserved	=	0;
 	_idt[i].flags		=	flags;
     _idt[i].sel		    =	sel;
- 
-	return	0;
 }
 
 /* 

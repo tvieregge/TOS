@@ -11,7 +11,7 @@
 
 isr_handler_routine irq_handlers[PIC_NUM_INTERRUPTS] = {0}; 
 
-void isr_handler(struct regs* r) {
+void isr_handler(__attribute__ ((unused)) struct regs* r) {
     kpanic("exception received, don't recover yet");
 }
 

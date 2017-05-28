@@ -106,8 +106,6 @@ enum KEYCODE {
 	KEY_LEFTCURL          = '{',
 	KEY_RIGHTCURL         = '}',
 	KEY_DOLLAR            = '$',
-	KEY_POUND             = '£',
-	KEY_EURO              = '$',
 	KEY_LESS              = '<',
 	KEY_GREATER           = '>',
 	KEY_BAR               = '|',

@@ -5,6 +5,8 @@
  */
 
 #include "pit.h"
+#include "isr.h"
+#include <kernel/hal.h>
 #include <stdint.h>
 
 #define     PIT_REG_COUNTER_0   0x40
@@ -14,7 +16,7 @@
 
 static unsigned int _ticks = 0;
 
-void pit_irq_handler(struct regs* r) {
+void pit_irq_handler(__attribute__ ((unused)) struct regs* r) {
     _ticks += 1;
 }
 
