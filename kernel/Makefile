@@ -29,7 +29,9 @@ LIBS:=$(LIBS) $(KERNEL_ARCH_LIBS)
 OBJS:=\
 $(KERNEL_ARCH_OBJS) \
 kernel/kernel.o \
-kernel/shell.o \
+kernel/shell_wrapper.o \
+kernel/shell_core.o \
+kernel/shell_test.o \
 kernel/panic.o \
 
 ALL_OUR_OBJS:=\
