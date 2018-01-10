@@ -11,10 +11,15 @@
 #include <kernel/hal.h>
 #include <kernel/shell.h>
 
-void kernel_early(void)
+#include <kernel/multiboot.h>
+
+void kernel_early(multiboot_info_t* mbd, unsigned int magic)
 {
 	terminal_initialize(); // needed first for debug output
     init_hal();
+
+    printf("mem upper size: %d\n", mbd->mem_upper);
+
     init_shell("> ");
 }
 

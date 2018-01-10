@@ -26,7 +26,12 @@ stack_top:
 .global _start
 .type _start, @function
 _start:
-	movl $stack_top, %esp
+	# Set up the stack
+    movl $stack_top, %esp
+    
+    #load multiboot info onto stack
+    pushl %eax
+    pushl %ebx
 
 	# Initialize the core kernel before running the global constructors.
 	call kernel_early
@@ -39,4 +44,9 @@ _start:
 .Lhang:
 	hlt
 	jmp .Lhang
+
+/*
+Set the size of the _start symbol to the current location '.' minus its start.
+This is useful when debugging or when you implement call tracing.
+*/
 .size _start, . - _start
