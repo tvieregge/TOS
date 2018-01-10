@@ -11,7 +11,9 @@
 #include "pic.h"
 #include "pit.h"
 #include "kb.h"
+#include "mem.h"
 #include <kernel/hal.h>
+
 
 int init_hal() {
 
@@ -37,6 +39,10 @@ void irq_disable() {
 
 void irq_enable() {
     __asm__( "sti" );
+}
+
+long unsigned int mem_get_physical_size(void) {
+    return MEM_SIZE_PHYSICAL;
 }
 
 // outb/inb from OSDev wiki
