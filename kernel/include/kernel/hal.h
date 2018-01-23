@@ -2,7 +2,9 @@
 #define _HAL_H
 
 #include <stdint.h>
-int init_hal();
+#include <kernel/multiboot.h>
+
+int init_hal(multiboot_info_t *multiboot_info);
 
 unsigned int timer_get_uptime();
 

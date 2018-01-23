@@ -13,7 +13,7 @@
 #include "kb.h"
 #include <kernel/hal.h>
 
-int init_hal() {
+int init_hal(multiboot_info_t *multiboot_info) {
 
     irq_disable();
 
@@ -22,6 +22,7 @@ int init_hal() {
     pic_init();
     pit_init();
     kb_init();
+    pm_map_init(multiboot_info);
 
     irq_enable();
     return 0;
