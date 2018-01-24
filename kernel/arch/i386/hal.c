@@ -11,6 +11,7 @@
 #include "pic.h"
 #include "pit.h"
 #include "kb.h"
+#include "mem.h"
 #include <kernel/hal.h>
 
 int init_hal(multiboot_info_t *multiboot_info) {

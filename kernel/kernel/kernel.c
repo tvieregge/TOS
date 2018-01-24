@@ -18,7 +18,7 @@ void kernel_early(multiboot_info_t* mbd, unsigned int magic)
 	terminal_initialize(); // needed first for debug output
     init_hal(mbd);
 
-    printf("mem upper size: %d\n", mbd->mem_upper);
+    printf("mem upper size: %d\n", (int)mbd->mem_upper);
 
     init_shell("> ");
 }
