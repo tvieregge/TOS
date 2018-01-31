@@ -20,7 +20,7 @@ void kernel_early(multiboot_info_t* mbd, unsigned int magic)
 
     printf("mem upper size: %d\n", (int)mbd->mem_upper);
 
-    init_shell("> ");
+    //init_shell("> ");
 }
 
 void kernel_main(void)

@@ -16,6 +16,7 @@ void pm_clear_range(void *start, uint32_t size);
 void pm_set(uint32_t bit);
 void pm_clear(uint32_t bit);
 bool pm_test_bit(uint32_t bit);
+int32_t pm_get_free_bit(void);
 
 void pm_map_print();
 
