@@ -3,6 +3,7 @@
 #include "mem.h"
 #include <string.h>
 #include <stddef.h>
+#include <kernel/panic.h>
 
 #define PM_BLOCK_SIZE   4096
 #define KiB             1024
@@ -29,7 +30,7 @@ void pm_map_init(multiboot_info_t *multiboot_info) {
     memset(pm_map, 0xff, pm_num_blocks / PM_BLOCKS_PER_BYTE);
 
     // clear everyhitn after the kernel/pm_map
-    printf("ms - pmme = %d\n", mem_size-(uint32_t)pm_map_end);
+    printf("ms - pmme = %d\n", (int)(mem_size-(uint32_t)pm_map_end));
     pm_clear_range(pm_map_end, mem_size-(uint32_t)pm_map_end);
 
     pm_test();
@@ -94,16 +95,16 @@ void *pm_alloc_block(void) {
         return NULL;
     }
 
-    return free_bit*PM_BLOCK_SIZE;
+    return (void *)(free_bit*PM_BLOCK_SIZE);
 }
 
 // Returns free bit in phys. mem map or -1
 int32_t pm_get_free_bit(void) {
     // search through the list of bits for a non max int
-    for(int i=0; i < pm_num_blocks/32; ++i) {
+    for(uint32_t i=0; i < pm_num_blocks/32; ++i) {
         if(pm_map[i] == 0xFFFFFFFF) {
             // search through the int for the free bit
-            for(int pos=0; bit < 32; ++bit) {
+            for(int pos=0; pos < 32; ++pos) {
                 int bit = i*32 + pos;
                 if(!pm_test_bit(bit)) {
                     return bit;
@@ -118,31 +119,31 @@ void pm_test(void) {
     printf("kernel end: %d\n", (int)&kernel_end);
     printf("pm map end: %d\n", (int)pm_map_end);
 
-    if( !(&kernel_end < pm_map_end) ) {
+    if( !((void *)&kernel_end < pm_map_end) ) {
+        // these should probably be kpanics
         kpanic("bad pm_map address");
     }
 
     uint32_t first_free;
     uint32_t last_used ;
-    if(pm_map_end%PM_BLOCK_SIZE == 0) {
-        first_free = pm_map_end/PM_BLOCK_SIZE + 1;
-        last_used = pm_map_end/PM_BLOCK_SIZE
+    uint32_t i_pm_map_end = (uint32_t)pm_map_end;
+    if(i_pm_map_end%PM_BLOCK_SIZE == 0) {
+        first_free = i_pm_map_end/PM_BLOCK_SIZE + 1;
+        last_used = i_pm_map_end/PM_BLOCK_SIZE;
     }
     else {
-        first_free = pm_map_end/PM_BLOCK_SIZE + 2;
-        last_used = pm_map_end/PM_BLOCK_SIZE + 1;
+        first_free = i_pm_map_end/PM_BLOCK_SIZE + 2;
+        last_used = i_pm_map_end/PM_BLOCK_SIZE + 1;
     }
 
     // test first block that should be free
-    if(pm_test_bit(fisrt_free)) {
-        puts("first free bit not free!");
-        abort();
+    if(pm_test_bit(first_free)) {
+        kpanic("first free bit not free!");
     }
 
     // test last block that should be used
     if(!pm_test_bit(last_used)) {
-        puts("last used bit not used!");
-        abort();
+        kpanic("last used bit not used!");
     }
 
     // get a block, check it, then unset it
