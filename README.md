@@ -18,9 +18,10 @@ The next features up are
 
 Building
 ========
-A GCC cross compiler for i686-elf is required, and QEMU or some other way of running it.
-Then just run ./build to build and ./qemu if you have it installed to boot. The complete
-process can be found in the resources section.
+A GCC cross compiler for i686-elf is required, as well as QEMU or some other way of running an i686 binary.   
+Building can be done with ./build and simuation with ./qemu (if using QEMU).
+
+The complete process can be found in the resources section.
 
 For Manjaro
 -----------
